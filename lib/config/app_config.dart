@@ -1,4 +1,4 @@
-const baseUrl = "https://devmarket.egaz.shop/api/";
+const baseUrl = "http://devpankart.egaz.shop/api/";
 
 final headers = {
   'Content-Type': 'application/json',

@@ -11,18 +11,17 @@ class QCardImage extends StatelessWidget {
     Key? key,
     required this.directionLabel,
     required this.imagePath,
-    required this.onPress,
   }) : super(key: key);
 
   final String directionLabel;
   final String imagePath;
-  final VoidCallback onPress;
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return GestureDetector(
-      onTap: () => onPress,
+    return Card(
+      elevation: 5,
+      shadowColor: Colors.black12,
       child: Container(
         padding: const EdgeInsets.symmetric(
           vertical: 10,

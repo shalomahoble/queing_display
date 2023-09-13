@@ -5,13 +5,19 @@ class QSearchField extends StatelessWidget {
   const QSearchField({
     super.key,
     required this.hintText,
+    this.controller,
+    this.onChange,
   });
 
   final String hintText;
+  final TextEditingController? controller;
+  final void Function(String)? onChange;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
+      onChanged: onChange,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: hintStyle,

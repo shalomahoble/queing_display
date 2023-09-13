@@ -61,7 +61,7 @@ final flashInfoTitleStyle = GoogleFonts.poppins(
 );
 
 final flashInfoTextStyle = GoogleFonts.poppins(
-  fontSize: 40,
+  fontSize: 15,
   fontWeight: FontWeight.w400,
   color: Colors.black,
 );

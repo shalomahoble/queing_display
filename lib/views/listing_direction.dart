@@ -6,6 +6,7 @@ import 'package:queing_display/components/q_search_filed.dart';
 import 'package:queing_display/config/app_routes.dart';
 import 'package:queing_display/config/app_style.dart';
 import 'package:queing_display/config/size_config.dart';
+import 'package:queing_display/controllers/listen_controller.dart';
 import 'package:queing_display/controllers/quein_controller.dart';
 
 class ListingDirection extends StatelessWidget {
@@ -18,6 +19,8 @@ class ListingDirection extends StatelessWidget {
     //Get all direactions
 
     final queinController = Get.put(QueinController());
+
+    final listenController = Get.put(ListenController());
 
     return Obx(() {
       if (queinController.loading.value) {

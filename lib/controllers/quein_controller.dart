@@ -94,6 +94,10 @@ class QueinController extends GetxController {
     }
   }
 
+
+  // Get Ticket for site 
+  
+
   @override
   void onInit() {
     // TODO: implement onInit

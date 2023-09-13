@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:queing_display/components/q_card_image.dart';
 import 'package:queing_display/components/q_search_filed.dart';
@@ -17,6 +18,9 @@ class ListingSite extends StatelessWidget {
 
     //Get All site for direction specifique
     final queinController = Get.find<QueinController>();
+
+    //Get site id Select
+    final box = GetStorage();
 
     return Obx(() {
       if (queinController.allSites.isNotEmpty) {
@@ -48,7 +52,10 @@ class ListingSite extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final site = queinController.filteredSites[index];
                         return GestureDetector(
-                          onTap: () => Get.offAllNamed(AppRoutes.HOMEPAGE),
+                          onTap: () {
+                            box.write('site', site.id);
+                            Get.offAllNamed(AppRoutes.HOMEPAGE);
+                          },
                           child: QCardImage(
                             directionLabel: site.libelle,
                             imagePath: site.image,

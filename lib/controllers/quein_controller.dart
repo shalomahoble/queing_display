@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:queing_display/models/client.dart';
 import 'package:queing_display/models/direcrion.dart';
 import 'package:queing_display/models/site.dart';
 import 'package:queing_display/services/queing_service.dart';
@@ -15,6 +16,9 @@ class QueinController extends GetxController {
 
   RxList<Site> allSites = <Site>[].obs;
   RxList<Site> filteredSites = <Site>[].obs;
+
+  RxList<Client> client = <Client>[].obs;
+  RxList<Client> clientAnimatedListe = <Client>[].obs;
 
   final Rx<TextEditingController> searchDirectionController =
       TextEditingController().obs;
@@ -60,6 +64,7 @@ class QueinController extends GetxController {
   }
 
   //########################### SITES FUNTIONS #####################################
+  // ignore: non_constant_identifier_names
   Future<void> getAllSiteForDirection(int IdDirection) async {
     try {
       final response = await _queingService.getAllSites(IdDirection);
@@ -94,9 +99,26 @@ class QueinController extends GetxController {
     }
   }
 
+  // Get Ticket for site
 
-  // Get Ticket for site 
-  
+  Future<void> getAllTocket() async {
+    try {
+      final response = await _queingService.getAllTicket();
+      if (response.statusCode == 200) {
+        client.value = response.body["clients"]
+            .map<Client>((el) => Client.fromJson(el))
+            .toList();
+        clientAnimatedListe.value = client;
+      }
+    } catch (e) {
+      print('erreur get All ticket $e');
+    }
+  }
+
+  void deleteTiclet(int id) {
+    client.removeWhere((el) => el.id == id);
+    update();
+  }
 
   @override
   void onInit() {

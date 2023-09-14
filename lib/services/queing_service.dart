@@ -10,11 +10,15 @@ class QueingService extends GetConnect {
   //Recuperer tous les sites d'une direction
   Future<Response> getAllSites(int idDirection) async => await get(
         getUrl("directions/$idDirection"),
-      );
+      ).timeout(const Duration(minutes: 2), onTimeout: () {
+        return const Response(
+            statusCode: 404, body: "Vérifier votre connexion internet");
+      });
 
   //Recuperer tous les tickets d'un site
   Future<Response> getAllTicket() async {
     final siteId = box.read("site");
-    return await get(getUrl('url $siteId'));
+    final response = await get(getUrl('site/$siteId/tickets'));
+    return response;
   }
 }

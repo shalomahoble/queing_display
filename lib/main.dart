@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final box = GetStorage();
+    /*  box.remove('site'); */
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Queing Display',
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: KOrange),
         useMaterial3: true,
       ),
-      home: box.hasData("site") ? const Home() : const ListingDirection(),
+      home: const ListingDirection(),
+      /*  home: box.hasData("site") ? const Home() : const ListingDirection(), */
       getPages: AppRoutes.routes,
       initialBinding: AllControllerBinding(),
     );

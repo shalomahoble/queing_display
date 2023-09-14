@@ -7,7 +7,7 @@ import 'package:queing_display/config/app_style.dart';
 import 'package:queing_display/config/size_config.dart';
 
 class QCardImage extends StatelessWidget {
-  const QCardImage({
+  const QCardImage( {
     Key? key,
     required this.directionLabel,
     required this.imagePath,

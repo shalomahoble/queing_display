@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:queing_display/config/app_style.dart';
 import 'package:queing_display/controllers/quein_controller.dart';
 
@@ -16,7 +15,7 @@ class Home extends StatelessWidget {
     final queinController = Get.find<QueinController>();
 
     queinController.getAllTocket();
-
+    print(queinController.client);
     return Obx(() {
       if (queinController.client.isEmpty) {
         return Scaffold(
@@ -51,7 +50,6 @@ class Home extends StatelessWidget {
                           client: removeItem,
                           animation: animation,
                         ),
-                        
                       );
                     },
                     child: QueingDisplay(client: client, animation: animation),

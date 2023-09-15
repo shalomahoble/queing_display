@@ -22,6 +22,8 @@ class ListingSite extends StatelessWidget {
     //Get site id Select
     final box = GetStorage();
 
+    print(queinController.allSites);
+
     return Obx(() {
       if (queinController.allSites.isNotEmpty) {
         return Scaffold(
@@ -43,11 +45,11 @@ class ListingSite extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 20),
                   child: GridView.builder(
                       itemCount: queinController.filteredSites.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
                         mainAxisSpacing: 5,
                         crossAxisSpacing: 5,
+                        mainAxisExtent: SizeConfig.screenWidth! * 0.3,
                       ),
                       itemBuilder: (context, index) {
                         final site = queinController.filteredSites[index];
@@ -70,9 +72,17 @@ class ListingSite extends StatelessWidget {
       } else {
         return Scaffold(
           body: Center(
-            child: LoadingAnimationWidget.threeArchedCircle(
-              color: KOrange,
-              size: 40,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LoadingAnimationWidget.threeArchedCircle(
+                  color: KOrange,
+                  size: 40,
+                ),
+                const SizedBox(height: 20),
+                const Icon(Icons.hourglass_disabled_outlined, size: 50),
+                Text("Aucun site pour trouvé ...", style: titleWelcome),
+              ],
             ),
           ),
         );

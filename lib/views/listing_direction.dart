@@ -39,14 +39,15 @@ class ListingDirection extends StatelessWidget {
                 ),
                 Expanded(
                     child: Container(
-                  margin: const EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   child: GridView.builder(
+                      shrinkWrap: true,
                       itemCount: queinController.filteredDirections.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
                         mainAxisSpacing: 5,
                         crossAxisSpacing: 5,
+                        mainAxisExtent: SizeConfig.screenWidth! * 0.3,
                       ),
                       itemBuilder: (context, index) {
                         final direction =

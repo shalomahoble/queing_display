@@ -7,7 +7,7 @@ import 'package:queing_display/config/app_style.dart';
 import 'package:queing_display/config/size_config.dart';
 
 class QCardImage extends StatelessWidget {
-  const QCardImage( {
+  const QCardImage({
     Key? key,
     required this.directionLabel,
     required this.imagePath,
@@ -24,12 +24,11 @@ class QCardImage extends StatelessWidget {
       shadowColor: Colors.black12,
       child: Container(
         padding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 15,
+          horizontal: 10,
         ),
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(5),
         ),
         alignment: Alignment.center,
         child: Column(
@@ -37,7 +36,7 @@ class QCardImage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(5),
               child: CachedNetworkImage(
                 imageUrl: imagePath,
                 fit: BoxFit.cover,
@@ -48,11 +47,17 @@ class QCardImage extends StatelessWidget {
                 ),
                 errorWidget: (context, url, error) =>
                     Image.asset("assets/images/error.png"),
-                width: SizeConfig.screenWidth! * 12,
-                height: SizeConfig.screenWidth! * .33,
+                width: SizeConfig.screenWidth! * 5,
+                height: SizeConfig.screenWidth! * 0.15,
               ),
             ),
-            Text(directionLabel.toUpperCase(), style: titleWelcome),
+            Padding(
+              padding: EdgeInsets.only(top: SizeConfig.screenWidth! * 0.015),
+              child: Text(
+                directionLabel.toUpperCase(),
+                style: titleWelcome.copyWith(fontSize: 10),
+              ),
+            ),
           ],
         ),
       ),

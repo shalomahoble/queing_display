@@ -25,7 +25,6 @@ class ListenController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
 
     speak(

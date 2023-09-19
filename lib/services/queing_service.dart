@@ -18,7 +18,11 @@ class QueingService extends GetConnect {
   //Recuperer tous les tickets d'un site
   Future<Response> getAllTicket() async {
     final siteId = box.read("site");
-    final response = await get(getUrl('site/$siteId/tickets'));
-    return response;
+    if (siteId == null) {
+      return const Response(statusCode: 400, body: null);
+    } else {
+      final response = await get(getUrl('site/$siteId/tickets'));
+      return response;
+    }
   }
 }

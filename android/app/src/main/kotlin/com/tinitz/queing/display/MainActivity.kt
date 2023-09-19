@@ -1,4 +1,4 @@
-package com.example.queing_display
+package com.tinitz.queing.display
 
 import io.flutter.embedding.android.FlutterActivity
 

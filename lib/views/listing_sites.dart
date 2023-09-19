@@ -1,7 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:queing_display/components/q_card_image.dart';
 import 'package:queing_display/components/q_search_filed.dart';
 import 'package:queing_display/config/app_routes.dart';
@@ -22,7 +23,7 @@ class ListingSite extends StatelessWidget {
     //Get site id Select
     final box = GetStorage();
 
-    print(queinController.allSites);
+    log(queinController.allSites.toString());
 
     return Obx(() {
       if (queinController.allSites.isNotEmpty) {
@@ -75,10 +76,6 @@ class ListingSite extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                LoadingAnimationWidget.threeArchedCircle(
-                  color: KOrange,
-                  size: 40,
-                ),
                 const SizedBox(height: 20),
                 const Icon(Icons.hourglass_disabled_outlined, size: 50),
                 Text("Aucun site pour trouvé ...", style: titleWelcome),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "149731756482",
+    "project_id": "tinitz-display-9fc48",
+    "storage_bucket": "tinitz-display-9fc48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149731756482:android:42432231273a87f017ae5b",
+        "android_client_info": {
+          "package_name": "com.tinitz.queing.display"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm9YIYwb0kCEB1x-_RsVQEYF0coyG2pbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

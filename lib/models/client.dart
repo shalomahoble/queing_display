@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:queing_display/models/caisse.dart';
@@ -55,4 +56,9 @@ class Client {
         "updated_at": updatedAt,
         "caisse": caisse.toJson(),
       };
+
+  @override
+  String toString() {
+    return 'Client(id: $id, numClient: $numClient, statut: $statut, clotureId: $clotureId, caisseId: $caisseId, serviceId: $serviceId, createdAt: $createdAt, updatedAt: $updatedAt, caisse: $caisse)';
+  }
 }

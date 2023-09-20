@@ -6,16 +6,15 @@ import 'package:queing_display/controllers/quein_controller.dart';
 import '../components/queing_display.dart';
 
 class Home extends StatelessWidget {
-  Home({super.key});
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
     //get all caisses information with client
     final queinController = Get.find<QueinController>();
 
-    queinController.getAllTocket();
-    print(queinController.client);
+    queinController.getAllTicket();
+
     return Obx(() {
       if (queinController.client.isEmpty) {
         return Scaffold(
@@ -31,31 +30,34 @@ class Home extends StatelessWidget {
         );
       } else {
         return Scaffold(
+          backgroundColor: Colors.grey.shade300,
+          appBar: AppBar(
+            title: Text("Liste des tickets en cours", style: titleWelcome),
+            centerTitle: true,
+            elevation: 5,
+            shadowColor: Colors.black12,
+          ),
           body: SafeArea(
-              minimum: const EdgeInsets.symmetric(vertical: 10),
-              child: AnimatedList(
+            minimum: const EdgeInsets.symmetric(vertical: 10),
+            child: Obx(
+              () => AnimatedList(
                 scrollDirection: Axis.vertical,
-                key: _listKey,
+                key: queinController.listKey,
                 initialItemCount: queinController.client.length,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 itemBuilder: (context, index, animation) {
                   final client = queinController.client[index];
                   return GestureDetector(
-                    onTap: () {
-                      /*  queinController.deleteTiclet(client.id); */
-                      final removeItem = queinController.client.removeAt(index);
-                      _listKey.currentState!.removeItem(
-                        index,
-                        (context, animation) => QueingDisplay(
-                          client: removeItem,
-                          animation: animation,
-                        ),
-                      );
-                    },
-                    child: QueingDisplay(client: client, animation: animation),
+                    onTap: () {},
+                    child: QueingDisplay(
+                      client: client,
+                      animation: animation,
+                    ),
                   );
                 },
-              )),
+              ),
+            ),
+          ),
         );
       }
     });

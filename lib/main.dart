@@ -52,25 +52,18 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     subscribeToTopicHelloWorld();
-    _receiveMessageFirebase();
+    /* _receiveMessageFirebase(); */
   }
 
   // This widget is the root of your application.
   Future<void> subscribeToTopicHelloWorld() async {
-    await FirebaseMessaging.instance.subscribeToTopic("hello");
-  }
-
-  Future<void> _receiveMessageFirebase() async {
-    FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
-      if (remoteMessage.notification == null) return;
-      log(remoteMessage.notification!.title.toString());
-    });
+    await FirebaseMessaging.instance.subscribeToTopic("queuing");
   }
 
   @override
   Widget build(BuildContext context) {
     final box = GetStorage();
-    box.remove('site');
+    /* box.remove('site'); */
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Queing Display',

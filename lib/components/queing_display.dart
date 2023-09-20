@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:queing_display/config/app_style.dart';
 import 'package:queing_display/models/client.dart';
 
+// ignore: must_be_immutable
 class QueingDisplay extends StatelessWidget {
-  const QueingDisplay({
+  QueingDisplay({
     Key? key,
     required this.client,
     required this.animation,
   }) : super(key: key);
 
   final Client client;
-  final Animation<double> animation;
+  Animation<double> animation;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +33,7 @@ class QueingDisplay extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(client.numClient.toString(),
-                        style: flashInfoTextStyle),
+                    Text(client.numClient.toString(), style: flashInfoTextStyle),
                     Expanded(
                         child: Container(
                       width: 10,

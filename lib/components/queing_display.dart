@@ -20,40 +20,25 @@ class QueingDisplay extends StatelessWidget {
     return SizeTransition(
       sizeFactor: animation,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4),
-        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
-          color: Colors.green.shade100,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(client.numClient.toString(), style: flashInfoTextStyle),
-                    Expanded(
-                        child: Container(
-                      width: 10,
-                      height: 2,
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: const BoxDecoration(
-                        color: Colors.black,
-                      ),
-                    )),
-                    Text(
-                      client.caisse.libelle,
-                      style: flashInfoTextStyle.copyWith(
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ],
+            Expanded(
+              child: ListTile(
+                leading: const Icon(Icons.contact_page, size: 35),
+                title: Text(client.numClient,
+                    style: laStyle.copyWith(fontSize: 15)),
+                trailing: Text(
+                  client.caisse.libelle,
+                  style: laStyle.copyWith(fontSize: 15),
                 ),
-                const Divider(color: Colors.black, thickness: 2),
-              ],
-            )
+                subtitle: Text(client.createdAtDate()),
+              ),
+            ),
           ],
         ),
       ),

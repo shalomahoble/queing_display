@@ -11,6 +11,7 @@ import 'package:queing_display/controllers/all_controller_binding.dart';
 import 'package:queing_display/firebase_options.dart';
 import 'package:queing_display/views/home.dart';
 import 'package:queing_display/views/listing_direction.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -23,6 +24,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  initializeDateFormatting('fr_FR', null);
   /*  final box = GetStorage();
  */
 
@@ -72,7 +74,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       /*  home: const ListingDirection(), */
-      home: box.hasData("site") ? Home() : const ListingDirection(),
+      home: box.hasData("site") ? const Home() : const ListingDirection(),
       getPages: AppRoutes.routes,
       initialBinding: AllControllerBinding(),
     );

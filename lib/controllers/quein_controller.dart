@@ -130,9 +130,11 @@ class QueinController extends GetxController {
           .toList() as List<Client>;
       /* client.clear(); */
       final lastTicket = newticket[newticket.length - 1];
-      client.add(lastTicket);
-      listKey.currentState!.insertItem(newticket.length - 1,
-          duration: const Duration(seconds: 3));
+      if (!isPresent(lastTicket.id)) {
+        client.add(lastTicket);
+        listKey.currentState!.insertItem(newticket.length - 1,
+            duration: const Duration(seconds: 3));
+      }
       update();
 
       final phrase =

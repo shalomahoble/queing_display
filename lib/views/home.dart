@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:queing_display/config/app_style.dart';
@@ -30,9 +33,20 @@ class Home extends StatelessWidget {
         );
       } else {
         return Scaffold(
-          backgroundColor: Colors.grey.shade300,
           appBar: AppBar(
-            title: Text("Liste des tickets en cours", style: titleWelcome),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CachedNetworkImage(
+                  imageUrl: queinController.site.value.image,
+                  width: 50,
+                  errorWidget: (context, url, error) =>
+                      const Text("assets/images/error.png"),
+                  placeholder: (context, url) => const Icon(Icons.image),
+                ),
+                Text("Liste des tickets en cours", style: titleWelcome),
+              ],
+            ),
             centerTitle: true,
             elevation: 5,
             shadowColor: Colors.black12,

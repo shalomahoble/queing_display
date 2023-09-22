@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:queing_display/components/queing_display.dart';
 import 'package:queing_display/models/client.dart';
 import 'package:queing_display/models/direcrion.dart';
@@ -11,6 +12,7 @@ import 'package:queing_display/models/site.dart';
 import 'package:queing_display/services/queing_service.dart';
 
 class QueinController extends GetxController {
+  final box = GetStorage();
   final _queingService = Get.put(QueingService());
   RxBool loading = false.obs;
   RxBool loadingSite = false.obs;
@@ -22,6 +24,8 @@ class QueinController extends GetxController {
 
   RxList<Client> client = <Client>[].obs;
   RxList<Client> clientAnimatedListe = <Client>[].obs;
+  Rx<Site> site =
+      Site(id: 0, libelle: '', image: 'assets/images/error.png').obs;
 
   final Rx<TextEditingController> searchDirectionController =
       TextEditingController().obs;
@@ -115,6 +119,7 @@ class QueinController extends GetxController {
         client.value = response.body["clients"]
             .map<Client>((el) => Client.fromJson(el))
             .toList();
+        site.value = Site.fromJson(response.body["site"]);
         update();
       }
     } catch (e) {

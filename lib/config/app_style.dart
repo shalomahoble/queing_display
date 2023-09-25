@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 // ignore: constant_identifier_names
 const Color KOrange = Color(0xffee6a30);
 
+// ignore: constant_identifier_names
 const Color KbackgroundColor = Color(0xfff1f1f1);
 
 final TextStyle titleWelcome = GoogleFonts.poppins(

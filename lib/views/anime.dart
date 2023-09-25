@@ -4,6 +4,7 @@ class AnimatedListDemo extends StatefulWidget {
   const AnimatedListDemo({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AnimatedListDemoState createState() => _AnimatedListDemoState();
 }
 

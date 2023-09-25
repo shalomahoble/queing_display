@@ -142,9 +142,9 @@ class QueinController extends GetxController {
       }
       update();
 
-      final phrase =
+      /* final phrase =
           "le Ticket ${lastTicket.numClient} est attendu a la ${lastTicket.caisse.libelle}";
-      speak(phrase);
+      speak(phrase); */
     } else {
       log(response.body.toString());
     }
@@ -223,10 +223,9 @@ class QueinController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     _receiveMessageFirebase();
-    print("On init ...");
+    log("On init ...");
     getAllDirections();
   }
 }

@@ -23,6 +23,7 @@ class Caisse {
     this.updatedAt,
   });
 
+
   factory Caisse.fromRawJson(String str) => Caisse.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());

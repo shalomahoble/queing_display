@@ -1,5 +1,3 @@
-
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:queing_display/utils/utils.dart';
@@ -26,5 +24,20 @@ class QueingService extends GetConnect {
       final response = await get(getUrl('site/$siteId/tickets'));
       return response;
     }
+  }
+
+  //Recuperer tous les tickets d'un site
+  Future<Response> loginTv(
+      {required String code, required String password}) async {
+    return await post(getUrl('site/tv'), <String, dynamic>{
+      'code': code,
+      'password': password,
+    }).timeout(
+      const Duration(minutes: 4),
+      onTimeout: () => const Response(
+        statusCode: 400,
+        body: "Connexion impossible",
+      ),
+    );
   }
 }

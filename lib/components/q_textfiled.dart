@@ -1,10 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:queing_display/config/app_style.dart';
 
 class QTextField extends StatelessWidget {
   const QTextField({
-    super.key,
-  });
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +19,15 @@ class QTextField extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15.0),
-            child: Text("Code Borne", style: labelStyle),
+            child: Text("Code Site", style: labelStyle),
           ),
           TextFormField(
             keyboardType: TextInputType.name,
+            controller: controller,
+            onTapOutside: (event) =>
+                FocusManager.instance.primaryFocus?.unfocus(),
             decoration: InputDecoration(
-              hintText: "Code Borne",
+              hintText: "Code Site",
               hintStyle: hintStyle,
               filled: true,
               fillColor: Colors.white,

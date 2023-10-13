@@ -1,10 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:queing_display/config/app_style.dart';
 
 class QTextFieldPassword extends StatefulWidget {
   const QTextFieldPassword({
-    super.key,
-  });
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final TextEditingController controller;
 
   @override
   State<QTextFieldPassword> createState() => _QTextFieldPasswordState();
@@ -25,9 +30,12 @@ class _QTextFieldPasswordState extends State<QTextFieldPassword> {
             child: Text("Mot de Passe", style: labelStyle),
           ),
           TextFormField(
+            controller: widget.controller,
             keyboardType: TextInputType.text,
             obscureText: _obscureText,
             obscuringCharacter: '*',
+            onTapOutside: (event) =>
+                FocusManager.instance.primaryFocus?.unfocus(),
             decoration: InputDecoration(
                 hintText: "mot de passe",
                 hintStyle: hintStyle,

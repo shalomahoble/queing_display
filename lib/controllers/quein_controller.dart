@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:queing_display/components/q_card_ticket.dart';
 import 'package:queing_display/components/queing_display.dart';
 import 'package:queing_display/models/client.dart';
 import 'package:queing_display/models/direcrion.dart';
@@ -137,8 +138,11 @@ class QueinController extends GetxController {
       final lastTicket = newticket[newticket.length - 1];
       if (!isPresent(lastTicket.id)) {
         client.add(lastTicket);
-        listKey.currentState!.insertItem(newticket.length - 1,
-            duration: const Duration(seconds: 3));
+        listKey.currentState!.insertItem(
+          0,
+          duration: const Duration(seconds: 3),
+        );
+        callNextTicket(lastTicket.id);
       }
       update();
 
@@ -166,22 +170,62 @@ class QueinController extends GetxController {
     return client.any((el) => el.id == id);
   }
 
-  void deleteTiclet(int id, int nextId) {
+  Future<void> nextTicket(int id, int nextId) async {
+    final response = await _queingService.getAllTicket();
+
     if (client.isNotEmpty && isPresent(id)) {
       //Recuperer l'index du ticket
       final index = client.indexWhere((el) => el.id == id);
       //Suppression dans la liste a un index
       final removeItem = client.removeAt(index);
-      listKey.currentState!.removeItem(
+      listKey.currentState?.removeItem(
           index,
-          (context, animation) => QueingDisplay(
+          (context, animation) => QCardTicket(
                 client: removeItem,
                 animation: animation,
               ),
           duration: const Duration(microseconds: 300));
       update();
-      //Client suivant a appelle ticket
-      callNextTicket(nextId);
+    }
+
+    if (response.statusCode == 200) {
+      final newticket = response.body["clients"]
+          .map<Client>((el) => Client.fromJson(el))
+          .toList() as List<Client>;
+      if (newticket.isNotEmpty) {
+        final tickect = newticket.where((el) => el.id == nextId).toList().first;
+        if (!isPresent(tickect.id)) {
+          client.add(tickect);
+          listKey.currentState!.insertItem(
+            newticket.length - 1,
+            duration: const Duration(seconds: 3),
+          );
+          callNextTicket(tickect.id);
+        }
+        update();
+      }
+    }
+  }
+
+  Future<void> firstTicket(int id) async {
+    final response = await _queingService.getAllTicket();
+    if (response.statusCode == 200) {
+      final newticket = response.body["clients"]
+          .map<Client>((el) => Client.fromJson(el))
+          .toList() as List<Client>;
+      final tickect = newticket.where((el) => el.id == id).toList().first;
+      // final lastTicket = newticket[newticket.length - 1];
+      if (!isPresent(tickect.id)) {
+        client.add(tickect);
+        listKey.currentState?.insertItem(
+          client.length - 1,
+          duration: const Duration(seconds: 3),
+        );
+        update();
+        callTicket(tickect);
+      }
+    } else {
+      log(response.body.toString());
     }
   }
 
@@ -195,6 +239,13 @@ class QueinController extends GetxController {
     }
   }
 
+//Appeller le ticket
+  void callTicket(Client client) {
+    final text =
+        "le Ticket ${client.numClient} est attendu a la ${client.caisse.libelle}";
+    speak(text);
+  }
+
   //Firebase messaging to listen event
   Future<void> _receiveMessageFirebase() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
@@ -204,13 +255,15 @@ class QueinController extends GetxController {
       log(data.toString());
 
       switch (data["event"].toString()) {
-        case "NOUVEAU TICKET":
-          fetchNewTicket();
-          break;
         case "NEXT TICKET":
           final id = int.parse(data['id']);
           final nextId = int.parse(data['nextId']);
-          deleteTiclet(id, nextId);
+          nextTicket(id, nextId);
+          break;
+        case "DEBUT TICKET":
+          final id = int.parse(data['id']);
+          // final nextId = int.parse(data['nextId']);
+          firstTicket(id);
           break;
         case "RAPPEL TICKET":
           final id = int.parse(data['id']);

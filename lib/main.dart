@@ -9,9 +9,9 @@ import 'package:queing_display/config/app_routes.dart';
 import 'package:queing_display/config/app_style.dart';
 import 'package:queing_display/controllers/all_controller_binding.dart';
 import 'package:queing_display/firebase_options.dart';
-import 'package:queing_display/views/home.dart';
-import 'package:queing_display/views/listing_direction.dart';
+import 'package:queing_display/views/liste_ticketing.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:queing_display/views/login.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -65,6 +65,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     final box = GetStorage();
     /* box.remove('site'); */
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Queing Display',
@@ -72,8 +73,9 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: KOrange),
         useMaterial3: true,
       ),
-      /*  home: const ListingDirection(), */
-      home: box.hasData("site") ? const Home() : const ListingDirection(),
+      //home: const Login(),
+      home: box.hasData("token") ? const ListeTicketing() : Login(),
+      // home: box.hasData("site") ? const Home() : const ListingDirection(),
       getPages: AppRoutes.routes,
       initialBinding: AllControllerBinding(),
     );

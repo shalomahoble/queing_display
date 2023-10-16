@@ -10,7 +10,7 @@ class QMedias extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Expanded(
-      flex: 2,
+      flex: 1,
       child: Container(
         margin: const EdgeInsets.only(left: 10),
         width: 40,

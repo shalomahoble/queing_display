@@ -40,4 +40,13 @@ class QueingService extends GetConnect {
       ),
     );
   }
+
+  //Recuperer les arlertes
+  Future<Response> getAllAlerte() async => await get(
+        getUrl("get-all-alerte/tv"),
+      ).timeout(
+        const Duration(minutes: 4),
+        onTimeout: () =>
+            const Response(statusCode: 400, body: "Connexion impossible"),
+      );
 }

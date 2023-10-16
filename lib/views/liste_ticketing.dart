@@ -10,6 +10,7 @@ import 'package:queing_display/components/q_liste_card_ticket.dart';
 import 'package:queing_display/components/q_medias.dart';
 import 'package:queing_display/config/app_style.dart';
 import 'package:queing_display/config/size_config.dart';
+import 'package:queing_display/controllers/login_controller.dart';
 import 'package:queing_display/controllers/quein_controller.dart';
 
 class ListeTicketing extends StatefulWidget {
@@ -25,46 +26,35 @@ class _ListeTicketingState extends State<ListeTicketing> {
     SizeConfig().init(context);
 
     final queinController = Get.find<QueinController>();
+    final loginController = Get.find<LoginController>();
 
     queinController.getAllTicket();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 10),
+        minimum: const EdgeInsets.symmetric(horizontal: 5),
         child: Column(
           children: [
-            QHeader(image: queinController.site.value.image),
+            QHeader(image: loginController.site.value.image),
+            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                QListeCardTicket(), //Listing of ticketing widget
+                QListeCardTicket(), //Li2sting of ticketing widget
                 const QMedias(), //Media widget for vidoe or image
               ],
             ),
             // const Spacer(),
-            const FlashInfo() // flash info widget
+            Obx(
+              () => FlashInfo(
+                text: loginController.getAlerteToText(),
+              ),
+            ), // flash info widget
           ],
         ),
       ),
     );
-
-    // return Obx(() {
-    //   if (queinController.client.isNotEmpty) {
-
-    //   } else {
-    //     return Scaffold(
-    //       body: Center(
-    //         child: Column(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             const Icon(Icons.hourglass_disabled_outlined, size: 50),
-    //             Text("Aucun ticket pour l'instant", style: titleWelcome),
-    //           ],
-    //         ),
-    //       ),
-    //     );
-    //   }
-    // });
   }
 }
 

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:queing_display/components/q_card_ticket.dart';
 import 'package:queing_display/components/queing_display.dart';
+import 'package:queing_display/controllers/login_controller.dart';
 import 'package:queing_display/models/client.dart';
 import 'package:queing_display/models/direcrion.dart';
 import 'package:queing_display/models/site.dart';
@@ -37,6 +38,8 @@ class QueinController extends GetxController {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
   FlutterTts flutterTts = FlutterTts();
+
+  final LoginController loginController = Get.find<LoginController>();
 
   //Function to get all directions
   Future<void> getAllDirections() async {
@@ -246,6 +249,11 @@ class QueinController extends GetxController {
     speak(text);
   }
 
+//Recuper les nouvelles alertes
+  void alerteUpdate(int id) {
+    loginController.getNewAlerte();
+  }
+
   //Firebase messaging to listen event
   Future<void> _receiveMessageFirebase() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
@@ -268,6 +276,10 @@ class QueinController extends GetxController {
         case "RAPPEL TICKET":
           final id = int.parse(data['id']);
           callNextTicket(id);
+          break;
+        case "UPDATE ALERTE":
+          final id = int.parse(data['id']);
+          alerteUpdate(id);
           break;
         default:
       }

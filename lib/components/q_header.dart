@@ -15,35 +15,31 @@ class QHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Expanded(
-      flex: 2,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: CachedNetworkImage(
-                imageUrl: image ??
-                    "https://images.pexels.com/photos/10464867/pexels-photo-10464867.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                    LoadingAnimationWidget.threeArchedCircle(
-                  color: KOrange,
-                  size: 40,
-                ),
-                errorWidget: (context, url, error) =>
-                    Image.asset("assets/images/error.png"),
-                width: SizeConfig.blockVertical! * 50,
-                height: SizeConfig.blockVertical! * 50,
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: CachedNetworkImage(
+              imageUrl: image ??
+                  "https://images.pexels.com/photos/10464867/pexels-photo-10464867.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  LoadingAnimationWidget.threeArchedCircle(
+                color: KOrange,
+                size: 40,
               ),
+              errorWidget: (context, url, error) =>
+                  Image.asset("assets/images/error.png"),
+              width: SizeConfig.blockVertical! * 50,
+              height: SizeConfig.blockVertical! * 50,
             ),
-            const SizedBox(width: 20),
-            Text(
-              "Liste des Tickets en Appelés ",
-              style: titleWelcome.copyWith(fontSize: 30),
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 20),
+          Text(
+            "Liste des Tickets Appelés ",
+            style: titleWelcome.copyWith(fontSize: 30),
+          ),
+        ],
       ),
     );
   }

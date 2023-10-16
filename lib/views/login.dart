@@ -40,7 +40,7 @@ class Login extends StatelessWidget {
                   child: Image.asset(
                     "assets/images/orange.png",
                     width: SizeConfig.screenWidth! * 10,
-                    height: SizeConfig.screenWidth! * .3,
+                    height: SizeConfig.blockHorizontal! * 10,
                     alignment: AlignmentDirectional.center,
                   ),
                 ),

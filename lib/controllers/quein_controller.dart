@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:queing_display/components/q_card_ticket.dart';
 import 'package:queing_display/components/queing_display.dart';
 import 'package:queing_display/controllers/login_controller.dart';
+import 'package:queing_display/models/alerte.dart';
 import 'package:queing_display/models/client.dart';
 import 'package:queing_display/models/direcrion.dart';
 import 'package:queing_display/models/site.dart';
@@ -28,6 +29,7 @@ class QueinController extends GetxController {
   RxList<Client> clientAnimatedListe = <Client>[].obs;
   Rx<Site> site =
       Site(id: 0, libelle: '', image: 'assets/images/error.png').obs;
+        RxList<Alerte> alerte = RxList.empty();
 
   final Rx<TextEditingController> searchDirectionController =
       TextEditingController().obs;
@@ -128,6 +130,28 @@ class QueinController extends GetxController {
       }
     } catch (e) {
       log('erreur get All ticket $e');
+    }
+  }
+
+    String getAlerteToText() {
+    if (alerte.isNotEmpty) {
+      return alerte.map((e) => e.libelle).toList().join(" | ");
+    } else {
+      return '';
+    }
+  }
+
+  Future<void> getNewAlerte() async {
+    try {
+      final response = await _queingService.getAllAlerte();
+      if (response.statusCode == 200) {
+        alerte.value = response.body['alertes']
+            .map<Alerte>((el) => Alerte.fromJson(el))
+            .toList();
+        update();
+      } else {}
+    } catch (e) {
+      rethrow;
     }
   }
 

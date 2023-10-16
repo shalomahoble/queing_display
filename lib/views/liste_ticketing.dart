@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:queing_display/components/flash_info.dart';
 import 'package:queing_display/components/q_header.dart';
@@ -10,7 +8,6 @@ import 'package:queing_display/components/q_liste_card_ticket.dart';
 import 'package:queing_display/components/q_medias.dart';
 import 'package:queing_display/config/app_style.dart';
 import 'package:queing_display/config/size_config.dart';
-import 'package:queing_display/controllers/login_controller.dart';
 import 'package:queing_display/controllers/quein_controller.dart';
 
 class ListeTicketing extends StatefulWidget {
@@ -26,9 +23,10 @@ class _ListeTicketingState extends State<ListeTicketing> {
     SizeConfig().init(context);
 
     final queinController = Get.find<QueinController>();
-    final loginController = Get.find<LoginController>();
 
-    queinController.getAllTicket();
+    queinController.getAllTicket(); //Recuperer les tickets deja appelles
+
+    queinController.getNewAlerte(); //Recupeerer les alertes flash infos
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,7 +34,7 @@ class _ListeTicketingState extends State<ListeTicketing> {
         minimum: const EdgeInsets.symmetric(horizontal: 5),
         child: Column(
           children: [
-            QHeader(image: loginController.site.value.image),
+            Obx(() => QHeader(image: queinController.site.value.image)),
             const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +46,7 @@ class _ListeTicketingState extends State<ListeTicketing> {
             // const Spacer(),
             Obx(
               () => FlashInfo(
-                text: loginController.getAlerteToText(),
+                text: queinController.getAlerteToText(),
               ),
             ), // flash info widget
           ],

@@ -23,7 +23,7 @@ class FlashInfo extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(top: 10),
         width: double.infinity,
-        height: SizeConfig.blockHorizontal! * 80,
+        height: SizeConfig.blockHorizontal! * 45,
         color: Colors.white,
         child: Row(
           children: [
@@ -36,7 +36,10 @@ class FlashInfo extends StatelessWidget {
               alignment: AlignmentDirectional.center,
               child: Text(
                 'Flash Infos',
-                style: flashInfoTitleStyle,
+                style: flashInfoTitleStyle.copyWith(
+                  fontSize: 20,
+                  letterSpacing: 1,
+                ),
               ),
             ),
             Expanded(

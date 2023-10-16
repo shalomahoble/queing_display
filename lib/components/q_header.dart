@@ -28,8 +28,9 @@ class QHeader extends StatelessWidget {
                 color: KOrange,
                 size: 40,
               ),
-              errorWidget: (context, url, error) =>
-                  Image.asset("assets/images/error.png"),
+              errorWidget: (context, url, error) => const Center(
+                child: Text("Erreur  chargement de l'image ..."),
+              ),
               width: SizeConfig.blockVertical! * 50,
               height: SizeConfig.blockVertical! * 50,
             ),
